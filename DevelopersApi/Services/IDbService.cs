@@ -9,5 +9,6 @@ namespace DevelopersApi
 
         Task<ResultDTO> GetDevelopersByGameId(int GameId);
         Task<bool> AddDeveloperToGame(int developer, int GameId);
+        Task<bool> DeleteDeveloperFromGame(int developerId);
     }
 }
