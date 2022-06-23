@@ -17,9 +17,14 @@ namespace DevelopersApi.Controllers {
         }
 
         [HttpGet("/{GameId}")]
-        public async Task<ResultDTO> GetDevelopersByGameId(int GameId) {
+        public async Task<IActionResult> GetDevelopersByGameId(int GameId) {
 
-            return await _dbService.GetDevelopersByGameId(GameId);
+            var val = await _dbService.GetDevelopersByGameId(GameId);
+
+            if (val == null)
+                return NotFound();
+
+            return Ok(val);
         }
 
         [HttpPost]

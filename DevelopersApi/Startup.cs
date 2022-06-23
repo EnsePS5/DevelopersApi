@@ -28,7 +28,7 @@ namespace DevelopersApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Add from 2 kolos
+            
             services.AddDbContext<DevStudioDbContext>(opt => {
 
                 opt.UseSqlServer("Data Source=db-mssql;Initial Catalog=2019SBD;Integrated Security=True");
@@ -36,7 +36,7 @@ namespace DevelopersApi
             //-------
 
             services.AddControllers();
-            services.AddScoped<IDbService, DbService>(); //Add from 1 kolos
+            services.AddScoped<IDbService, DbService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DevelopersApi", Version = "v1" });

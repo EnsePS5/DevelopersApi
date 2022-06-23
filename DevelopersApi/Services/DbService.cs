@@ -58,7 +58,7 @@ namespace DevelopersApi
             }
 
             command.Parameters.Clear();
-            command.CommandText = $"INSERT INTO Developer_Game VALUES(${developer},${GameId},noobie)";
+            command.CommandText = $"INSERT INTO Developer_Game VALUES(${developer},${GameId},'noobie')";
             await command.ExecuteNonQueryAsync();
 
             await transaction.CommitAsync();
