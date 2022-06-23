@@ -65,6 +65,35 @@ namespace DevelopersApi
             return true;
         }
 
+        public async Task<bool> DeleteDeveloperFromGame(int developerId)
+        {
+            SqlConnection connection = new SqlConnection("Data Source=db-mssql;Initial Catalog=2019SBD;Integrated Security=True");
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+
+            await connection.OpenAsync();
+            DbTransaction transaction = await connection.BeginTransactionAsync();
+            command.Transaction = (SqlTransaction)transaction;
+
+            command.Parameters.Clear();
+            command.CommandText = "SELECT 1 FROM Developer_Game WHERE IdDeveloper = @idDev";
+            command.Parameters.AddWithValue("@idDev", developerId);
+            var scalar = await command.ExecuteScalarAsync();
+
+            if (scalar != null)
+            {
+                command.Parameters.Clear();
+                command.CommandText = "DELETE FROM Developer_Game WHERE IdDeveloper = @idDev";
+                command.Parameters.AddWithValue("@idDev", developerId);
+                await command.ExecuteNonQueryAsync();
+                await transaction.CommitAsync();
+                return true;
+            }
+            else
+
+                return false;
+        }
+
         public async Task<ResultDTO> GetDevelopersByGameId(int GameId)
         {
             if (_devStudioDbContext.Games.Where(x => x.IdGame == GameId) == null) {

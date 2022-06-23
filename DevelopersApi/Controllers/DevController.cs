@@ -38,5 +38,17 @@ namespace DevelopersApi.Controllers {
 
             return BadRequest();
         }
+
+        [HttpDelete]
+        [Route("/{DeveloperId}")]
+        public async Task<IActionResult> DeleteDeveloperFromGame(int DeveloperId) {
+
+            if (await _dbService.DeleteDeveloperFromGame(DeveloperId)) {
+
+                return StatusCode((int)HttpStatusCode.OK);
+            }
+
+            return BadRequest();
+        }
     }
 }
